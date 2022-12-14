@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
 
   s.swift_versions = ['5']
 
-  s.source_files = 'Source/SuiSwift/*.swift'
+  s.source_files = 'Sources/SuiSwift/*.swift'
 
   s.dependency 'Alamofire'
   s.dependency 'SwiftyJSON'
