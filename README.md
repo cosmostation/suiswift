@@ -10,6 +10,9 @@ iOS SDK for Sui
 ## Dependency
 
 ```
+dependencies: [
+    .package(url: "https://github.com/cosmostation/suiswift.git", .branch("main"))
+]
 ```
 
 
