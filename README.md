@@ -9,10 +9,26 @@ iOS SDK for Sui
 
 ## Dependency
 
-```
+#### Swift Package Manager
+
+You can use [The Swift Package Manager](https://swift.org/package-manager) to install `SuiSwift` by adding the proper description to your `Package.swift` file:
+```swift
 dependencies: [
     .package(url: "https://github.com/cosmostation/suiswift.git", .branch("main"))
 ]
+```
+
+#### CocoaPods
+
+You can use [CocoaPods](http://cocoapods.org/) to install `SuiSwift` by adding it to your `Podfile`:
+
+```ruby
+platform :ios, '13.0'
+use_frameworks!
+
+target 'MyApp' do
+    pod 'SuiSwift'
+end
 ```
 
 
