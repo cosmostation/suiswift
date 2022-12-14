@@ -17,7 +17,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		188A32B72942F94000AAEFCC /* SuiSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SuiSwift; path = ../SuiSwift; sourceTree = "<group>"; };
 		18AFCC272942205500F009FC /* example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18AFCC2A2942205500F009FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		18AFCC2C2942205500F009FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -27,6 +26,7 @@
 		18AFCC362942205600F009FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18AFCC382942205600F009FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18AFCC612942F6BF00F009FC /* suiswift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = suiswift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		18D0FC382949FDBC0055EF9F /* SuiSwift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = SuiSwift; path = ..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,7 +44,7 @@
 		188A32B52942F8F900AAEFCC /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				188A32B72942F94000AAEFCC /* SuiSwift */,
+				18D0FC382949FDBC0055EF9F /* SuiSwift */,
 			);
 			name = Packages;
 			sourceTree = "<group>";

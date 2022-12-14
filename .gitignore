@@ -57,7 +57,7 @@ playground.xcworkspace
 #Podfile.lock
 #
 # Add this line if you want to avoid checking in source code from the Xcode workspace
-# *.xcworkspace
+*.xcworkspace
 
 # Carthage
 #
@@ -65,3 +65,13 @@ playground.xcworkspace
 # Carthage/Checkouts
 
 #Carthage/
+.DS_Store
+/.build
+/Packages
+/*.xcodeproj
+xcuserdata/
+DerivedData/
+.swiftpm/config/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.netrc
+
