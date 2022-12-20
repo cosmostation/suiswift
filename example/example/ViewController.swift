@@ -105,7 +105,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                     if let result = result,
                        let mnemonic = self.mnemonic,
                        let bytes = Data(base64Encoded: result["txBytes"].stringValue) {
-                        let signature = SuiClient.shared.sign(mnemonic, bytes)
+                        let signature = SuiClient.shared.sign(mnemonic, Data([0, 0, 0]) + bytes)
                         SuiClient.shared.executeTransaction(bytes, signature.signedData, signature.pubKey) { r in
                             print(r)
                         }
