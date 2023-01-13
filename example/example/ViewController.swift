@@ -13,35 +13,21 @@ enum MENU {
     case NewMnemonic
     case LoadMnemonic
     case Faucet
-    case GetSuiSystemState
-    case GetTotalSupply
-    case GetAllBalances
-    case GetAllBalance
-    case GetAllCoin
-    case GetCoins
-    case GetCoinMetadata
     case GetObjectsByOwner
     case GetTransactions
     case GetTransactionDetails
     case TransferObject
     
-    static let allValues = [NewMnemonic, LoadMnemonic, Faucet, GetSuiSystemState, GetTotalSupply,
-                            GetAllBalances, GetAllBalance, GetAllCoin, GetCoins, GetCoinMetadata,
-                            GetObjectsByOwner, GetTransactions, GetTransactionDetails, TransferObject]
+    static let allValues = [NewMnemonic, LoadMnemonic, Faucet, GetObjectsByOwner, GetTransactions, GetTransactionDetails, TransferObject]
 }
 
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    let preloadMnemonic = "wing mammal best spend that cave decline zone legal affair demand pulp"
+    let preloadMnemonic = ""
     var address: String?
     var mnemonic: String?
     var objects: JSON?
     var digests: [String] = []
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        SuiClient.shared.setConfig(ChainType.devnet)
-    }
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
@@ -71,61 +57,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             if let mnemonic = mnemonic {
                 address = SuiClient.shared.getAddress(mnemonic)
             }
-            print("address ", address)
             return
         case .Faucet:
             if let address = address {
                 SuiClient.shared.faucet(address)
-            }
-            return
-        case .GetSuiSystemState:
-            SuiClient.shared.getSuiSystemstate() { result in
-                self.objects = result
-                print(result)
-            }
-            return
-        case .GetTotalSupply:
-            SuiClient.shared.getTotalSupply("0x168da5bf1f48dafc111b0a488fa454aca95e0b5e::usdc::USDC") { result in
-                self.objects = result
-                print(result)
-            }
-            return
-        case .GetAllBalances:
-            if let address = address {
-                SuiClient.shared.getAllBalances(address) { result in
-                    self.objects = result
-                    print(result)
-                }
-            }
-            return
-        case .GetAllBalance:
-            if let address = address {
-                SuiClient.shared.getAllBalance(address, "0x2::sui::SUI") { result in
-                    self.objects = result
-                    print(result)
-                }
-            }
-            return
-        case .GetAllCoin:
-            if let address = address {
-                SuiClient.shared.getAllCoins(address) { result in
-                    self.objects = result
-                    print(result)
-                }
-            }
-            return
-        case .GetCoins:
-            if let address = address {
-                SuiClient.shared.getCoins(address, "0x2::sui::SUI") { result in
-                    self.objects = result
-                    print(result)
-                }
-            }
-            return
-        case .GetCoinMetadata:
-            SuiClient.shared.getCoinMetadata("0x2::sui::SUI") { result in
-                self.objects = result
-                print(result)
             }
             return
         case .GetObjectsByOwner:
