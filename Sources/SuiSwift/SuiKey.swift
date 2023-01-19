@@ -16,14 +16,14 @@ public class SuiKey {
     static let key = "ed25519 seed"
     
     static func getSuiAddress(_ mnemonic: String) -> String {
-        let seedKey = getSeedKey(mnemonic)
+        let seedKey = getPrivKeyFromSeed(mnemonic)
         let publicKey = Ed25519.calcPublicKey(secretKey: [UInt8](seedKey))
         let hashBytes = Data([UInt8](Data(count: 1)) + publicKey).sha3(.sha256)
         return "0x" + hashBytes.hexEncodedString().prefix(40)
     }
     
     static func getPubKey(_ mnemonic: String) -> Data {
-        let seedKey = getSeedKey(mnemonic)
+        let seedKey = getPrivKeyFromSeed(mnemonic)
         return Data(Ed25519.calcPublicKey(secretKey: [UInt8](seedKey)))
     }
     
@@ -32,7 +32,7 @@ public class SuiKey {
         return Data(signature)
     }
     
-    static func getSeedKey(_ mnemonic: String) -> Data {
+    static func getPrivKeyFromSeed(_ mnemonic: String, _ path: Int? = nil) -> Data {
         let seed = BIP39.seedFromMmemonics(mnemonic, password: "", language: .english)
         var result = Data()
         do {
@@ -45,7 +45,7 @@ public class SuiKey {
             var seedKey = macSeedLeft
             var seedChain = macSeedRight
             
-            let paths = [44, 784, 0, 0, 0]
+            let paths = [44, 784, 0, 0, path ?? 0]
             try paths.forEach { path in
                 let buf = Data(UInt32(0x80000000 + path).bytes)
                 let databuf = Data(count: 1) + seedKey + buf

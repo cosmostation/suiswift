@@ -85,7 +85,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
             return
         case .GetTotalSupply:
-            SuiClient.shared.getTotalSupply("0x168da5bf1f48dafc111b0a488fa454aca95e0b5e::usdc::USDC") { result in
+            SuiClient.shared.getTotalSupply("0x2::sui::SUI") { result in
                 self.objects = result
                 print(result)
             }

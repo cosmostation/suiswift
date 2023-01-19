@@ -51,7 +51,7 @@ open class SuiClient {
     }
     
     public func sign(_ mnemonic: String, _ txBytes: Data) -> (pubKey: Data, signedData: Data) {
-        let seedKey = SuiKey.getSeedKey(mnemonic)
+        let seedKey = SuiKey.getPrivKeyFromSeed(mnemonic)
         return (SuiKey.getPubKey(mnemonic), SuiKey.sign(seedKey, txBytes))
     }
     
