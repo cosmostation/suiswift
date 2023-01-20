@@ -95,6 +95,11 @@ open class SuiClient {
         SuiRequest(params, listener)
     }
     
+    public func getObject(_ objectId: String, _ listener: @escaping (JSON?) -> Void) {
+        let params = JsonRpcRequest("sui_getObject", JSON(arrayLiteral: objectId))
+        SuiRequest(params, listener)
+    }
+    
     public func getTransactions(_ transactionQuery: [String: String], _ nextOffset: String? = nil, _ limit: Int? = nil, _ descending: Bool = false, _ listener: @escaping (JSON?) -> Void) {
         let params = JsonRpcRequest("sui_getTransactions", JSON(arrayLiteral: transactionQuery, nextOffset, limit, descending))
         SuiRequest(params, listener)

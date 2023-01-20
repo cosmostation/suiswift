@@ -21,13 +21,14 @@ enum MENU {
     case GetCoins
     case GetCoinMetadata
     case GetObjectsByOwner
+    case GetObject
     case GetTransactions
     case GetTransactionDetails
     case TransferObject
     
     static let allValues = [NewMnemonic, LoadMnemonic, Faucet, GetSuiSystemState, GetTotalSupply,
                             GetAllBalances, GetAllBalance, GetAllCoin, GetCoins, GetCoinMetadata,
-                            GetObjectsByOwner, GetTransactions, GetTransactionDetails, TransferObject]
+                            GetObjectsByOwner, GetObject, GetTransactions, GetTransactionDetails, TransferObject]
 }
 
 class ViewController: UIViewController {
@@ -134,6 +135,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                     self.objects = result
                     print(result)
                 }
+            }
+            return
+        case .GetObject:
+            SuiClient.shared.getObject("0xf45a365213a5d5c3042003c1b87f36465c2650f3") { result in
+                print(result)
             }
             return
         case .GetTransactions:
