@@ -111,18 +111,16 @@ open class SuiClient {
     }
     
     public func transferObject(_ objectId: String, _ receiver: String,
-                               _ sender: String, _ gasBudget: Int = 100, _ amount: Int? = nil
+                               _ sender: String, _ gasBudget: Int = 1000, _ amount: Int? = nil
                                , _ listener: @escaping (JSON?) -> Void) {
         let params = JsonRpcRequest("sui_transferSui", JSON(arrayLiteral: sender, objectId, gasBudget, receiver))
         SuiRequest(params, listener)
     }
     
     public func executeTransaction(_ txBytes: Data, _ signedBytes: Data, _ pubKey: Data, _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("sui_executeTransaction", JSON(arrayLiteral: txBytes.base64EncodedString(),
-                                                                   "ED25519",
-                                                                   signedBytes.base64EncodedString(),
-                                                                   pubKey.base64EncodedString(),
-                                                                   "WaitForLocalExecution"))
+        let params = JsonRpcRequest("sui_executeTransactionSerializedSig", JSON(arrayLiteral: txBytes.base64EncodedString(),
+                                                                                (Data([0x00]) + signedBytes + pubKey).base64EncodedString(),
+                                                                                "WaitForLocalExecution"))
         SuiRequest(params, listener)
     }
     
