@@ -138,7 +138,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
             return
         case .GetObject:
-            SuiClient.shared.getObject(["0xf45a365213a5d5c3042003c1b87f36465c2650f3"]) { result in
+            SuiClient.shared.getObject("0x3b95a4ee5da75370764bc821adf12189e99eddab") { result in
                 print(result)
             }
             return
