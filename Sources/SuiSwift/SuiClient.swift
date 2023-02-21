@@ -95,8 +95,8 @@ open class SuiClient {
         SuiRequest(params, listener)
     }
     
-    public func getObject(_ objectId: String, _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("sui_getObject", JSON(arrayLiteral: objectId))
+    public func getObject(_ objectIds: [String], _ listener: @escaping (JSON?) -> Void) {
+        let params = JsonRpcRequest("sui_getObject", JSON(objectIds))
         SuiRequest(params, listener)
     }
     
