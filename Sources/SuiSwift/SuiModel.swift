@@ -8,22 +8,22 @@
 import Foundation
 import SwiftyJSON
 
-struct FaucetRequest: Encodable {
+public struct FaucetRequest: Encodable {
     let FixedAmountRequest: FixedAmountRequest
 }
 
-struct FixedAmountRequest: Encodable {
+public struct FixedAmountRequest: Encodable {
     let recipient: String
 }
 
-struct JsonRpcResponse: Decodable {
+public struct JsonRpcResponse: Decodable {
     let id: Int
     var jsonrpc: String
     let result: JSON
 }
 
-struct JsonRpcRequest: Encodable {
-    init(_ method: String, _ params: JSON) {
+public struct JsonRpcRequest: Codable {
+    public init(_ method: String, _ params: JSON) {
         self.method = method
         self.params = params
     }

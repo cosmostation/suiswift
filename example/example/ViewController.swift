@@ -138,7 +138,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
             return
         case .GetObject:
-            SuiClient.shared.getObject("0x3b95a4ee5da75370764bc821adf12189e99eddab") { result in
+            SuiClient.shared.getObject(["0x0515b8025a1e9c4abf8f0e8b068a9e8ff7e7aa84","0x0c5865cfb88a3099dfeb367fa503080502bccb0e","0x0efe84ff97ead1dc88ac227ea07e0b623ced8168"]) { result in
                 print(result)
             }
             return
@@ -164,7 +164,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
             return
         case .GetTransactionDetails:
-            SuiClient.shared.getTransactionDetails(digests) { result in
+            SuiClient.shared.getTransactionDetails(["E9dJqeCPtyaB2N5VJ5FFNBm4qkoWfDUKKZDpnPD5k3Xk", "D88hBzVTQojx3PvpzcB423w7Mx4pyYJmnDey7NKJnXKW"]) { result in
                 print(result)
             }
             return

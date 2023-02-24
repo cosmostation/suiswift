@@ -95,9 +95,9 @@ open class SuiClient {
         SuiRequest(params, listener)
     }
     
-    public func getObject(_ objectId: String, _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("sui_getObject", JSON(arrayLiteral: objectId))
-        SuiRequest(params, listener)
+    public func getObject(_ objectIds: [String], _ listener: @escaping ([JSON]?) -> Void) {
+        let params = objectIds.map { objectId in JsonRpcRequest("sui_getObject", JSON(arrayLiteral: objectId)) }
+        SuiRequests(params, listener)
     }
     
     public func getTransactions(_ transactionQuery: [String: String], _ nextOffset: String? = nil, _ limit: Int? = nil, _ descending: Bool = false, _ listener: @escaping (JSON?) -> Void) {
@@ -105,9 +105,9 @@ open class SuiClient {
         SuiRequest(params, listener)
     }
     
-    public func getTransactionDetails(_ digests: [String], _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("sui_getTransaction", JSON(digests))
-        SuiRequest(params, listener)
+    public func getTransactionDetails(_ digests: [String], _ listener: @escaping ([JSON]?) -> Void) {
+        let params = digests.map { digest in JsonRpcRequest("sui_getTransaction", JSON(arrayLiteral: digest)) }
+        SuiRequests(params, listener)
     }
     
     public func transferObject(_ objectId: String, _ receiver: String,
@@ -139,5 +139,31 @@ open class SuiClient {
                 debugPrint(error)
             }
         }
+    }
+    
+    private func SuiRequests(_ params: [JsonRpcRequest], _ listener: @escaping ([JSON]?) -> Void) {
+        AF.request(rpc_endpoint,
+                   method: .post,
+                   parameters: params,
+                   encoder: JSONParameterEncoder.default).response { response in
+            switch response.result {
+            case .success(let value):
+                if let value = value, let response = try? JSONDecoder().decode([JsonRpcResponse].self, from: value) {
+                    listener(response.map({ res in
+                        res.result
+                    }))
+                }
+            case .failure(let error):
+                print("error ", error)
+                debugPrint(error)
+            }
+        }
+    }
+    
+    public func postJsonRpcRequest(_ params: JsonRpcRequest) async throws -> JSON {
+        return try await AF.request(rpc_endpoint,
+                                    method: .post,
+                                    parameters: params,
+                                    encoder: JSONParameterEncoder.default).serializingDecodable(JSON.self).value
     }
 }
