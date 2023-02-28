@@ -72,11 +72,12 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             if let mnemonic = mnemonic {
                 address = SuiClient.shared.getAddress(mnemonic)
             }
-            print("address ", address)
             return
         case .Faucet:
             if let address = address {
-                SuiClient.shared.faucet(address)
+                Task {
+                    let resut = try? await SuiClient.shared.faucet(address)
+                }
             }
             return
         case .GetSuiSystemState:

@@ -41,13 +41,11 @@ open class SuiClient {
         return SuiKey.getSuiAddress(mnemonic)
     }
     
-    public func faucet(_ address: String) {
-        AF.request(faucet_endpoint,
-                   method: .post,
-                   parameters: FaucetRequest(FixedAmountRequest: FixedAmountRequest(recipient: address)),
-                   encoder: JSONParameterEncoder.default).response { response in
-            debugPrint(response)
-        }
+    public func faucet(_ address: String) async throws -> JSON {
+        return try await AF.request(faucet_endpoint,
+                                    method: .post,
+                                    parameters: FaucetRequest(FixedAmountRequest: FixedAmountRequest(recipient: address)),
+                                    encoder: JSONParameterEncoder.default).serializingDecodable(JSON.self).value
     }
     
     public func sign(_ mnemonic: String, _ txBytes: Data) -> (pubKey: Data, signedData: Data) {
