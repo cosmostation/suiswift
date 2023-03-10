@@ -122,7 +122,7 @@ open class SuiClient {
         SuiRequest(params, listener)
     }
     
-    private func SuiRequest(_ params: JsonRpcRequest, _ listener: @escaping (JSON?) -> Void) {
+    public func SuiRequest(_ params: JsonRpcRequest, _ listener: @escaping (JSON?) -> Void) {
         AF.request(rpc_endpoint,
                    method: .post,
                    parameters: params,
@@ -139,7 +139,7 @@ open class SuiClient {
         }
     }
     
-    private func SuiRequests(_ params: [JsonRpcRequest], _ listener: @escaping ([JSON]?) -> Void) {
+    public func SuiRequests(_ params: [JsonRpcRequest], _ listener: @escaping ([JSON]?) -> Void) {
         AF.request(rpc_endpoint,
                    method: .post,
                    parameters: params,
