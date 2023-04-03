@@ -89,7 +89,7 @@ open class SuiClient {
     }
     
     public func getObjectsByOwner(_ address: String, _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("sui_getObjectsOwnedByAddress", JSON(arrayLiteral: address))
+        let params = JsonRpcRequest("suix_getOwnedObjects", JSON(arrayLiteral: address))
         SuiRequest(params, listener)
     }
     

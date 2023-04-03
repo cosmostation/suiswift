@@ -9,8 +9,7 @@ import Foundation
 import web3swift
 import CryptoSwift
 import ed25519swift
-
-
+import Blake2
 
 public class SuiKey {
     static let key = "ed25519 seed"
@@ -18,8 +17,9 @@ public class SuiKey {
     static func getSuiAddress(_ mnemonic: String) -> String {
         let seedKey = getPrivKeyFromSeed(mnemonic)
         let publicKey = Ed25519.calcPublicKey(secretKey: [UInt8](seedKey))
-        let hashBytes = Data([UInt8](Data(count: 1)) + publicKey).sha3(.sha256)
-        return "0x" + hashBytes.hexEncodedString().prefix(40)
+        let data = Data([UInt8](Data(count: 1)) + publicKey)
+        let hash = try! Blake2.hash(.b2b, size: 32, data: data)
+        return "0x" + hash.toHexString()
     }
     
     static func getPubKey(_ mnemonic: String) -> Data {

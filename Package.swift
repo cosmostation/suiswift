@@ -21,6 +21,7 @@ let package = Package(
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "4.0.0"),
         .package(url: "https://github.com/skywinder/web3swift.git", .upToNextMajor(from: "2.5.6")),
         .package(url: "https://github.com/pebble8888/ed25519swift.git", from: "1.2.7"),
+        .package(url: "https://github.com/tesseract-one/Blake2.swift.git", from: "0.1.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -32,6 +33,7 @@ let package = Package(
                 .product(name: "web3swift", package: "web3swift"),
                 .product(name: "SwiftyJSON", package: "SwiftyJSON"),
                 .product(name: "ed25519swift", package: "ed25519swift"),
+                .product(name: "Blake2", package: "Blake2.swift"),
             ]),
         .testTarget(
             name: "SuiSwiftTests",

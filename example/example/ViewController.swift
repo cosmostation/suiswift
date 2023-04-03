@@ -71,6 +71,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             mnemonic = preloadMnemonic
             if let mnemonic = mnemonic {
                 address = SuiClient.shared.getAddress(mnemonic)
+                print(address)
             }
             return
         case .Faucet:
