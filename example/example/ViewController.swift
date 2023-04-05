@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SuiClient.shared.setConfig(ChainType.devnet)
+        SuiClient.shared.setConfig(ChainType.testnet)
     }
 }
 
@@ -179,7 +179,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                        let mnemonic = self.mnemonic,
                        let bytes = Data(base64Encoded: result["txBytes"].stringValue) {
                         let signature = SuiClient.shared.sign(mnemonic, Data([0, 0, 0]) + bytes)
-                        SuiClient.shared.executeTransaction(bytes, signature.signedData, signature.pubKey) { r in
+                        SuiClient.shared.executeTransaction(bytes, signature.signedData, signature.pubKey, ["showEffects": true]) { r in
                             print(r)
                         }
                     }

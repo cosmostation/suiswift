@@ -64,12 +64,12 @@ open class SuiClient {
     }
     
     public func getAllBalances(_ address: String, _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("sui_getAllBalances", JSON(arrayLiteral: address))
+        let params = JsonRpcRequest("suix_getAllBalances", JSON(arrayLiteral: address))
         SuiRequest(params, listener)
     }
     
     public func getAllBalance(_ address: String, _ coinType: String, _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("sui_getBalance", JSON(arrayLiteral: address, coinType))
+        let params = JsonRpcRequest("suix_getBalance", JSON(arrayLiteral: address, coinType))
         SuiRequest(params, listener)
     }
     
@@ -89,7 +89,7 @@ open class SuiClient {
     }
     
     public func getObjectsByOwner(_ address: String, _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("suix_getOwnedObjects", JSON(arrayLiteral: address))
+        let params = JsonRpcRequest("suix_getOwnedObjects", JSON(arrayLiteral: address, ["filter": nil, "options":["showContent":true, "showType":true]]))
         SuiRequest(params, listener)
     }
     
@@ -99,7 +99,7 @@ open class SuiClient {
     }
     
     public func getTransactions(_ transactionQuery: [String: String], _ nextOffset: String? = nil, _ limit: Int? = nil, _ descending: Bool = false, _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("sui_getTransactions", JSON(arrayLiteral: transactionQuery, nextOffset, limit, descending))
+        let params = JsonRpcRequest("suix_queryTransactionBlocks", JSON(arrayLiteral: ["filter": transactionQuery, "options": ["showEffects": true, "showInput":true]], nextOffset, limit, descending))
         SuiRequest(params, listener)
     }
     
@@ -115,9 +115,10 @@ open class SuiClient {
         SuiRequest(params, listener)
     }
     
-    public func executeTransaction(_ txBytes: Data, _ signedBytes: Data, _ pubKey: Data, _ listener: @escaping (JSON?) -> Void) {
-        let params = JsonRpcRequest("sui_executeTransactionSerializedSig", JSON(arrayLiteral: txBytes.base64EncodedString(),
+    public func executeTransaction(_ txBytes: Data, _ signedBytes: Data, _ pubKey: Data, _ options: [String: Bool], _ listener: @escaping (JSON?) -> Void) {
+        let params = JsonRpcRequest("sui_executeTransactionBlock", JSON(arrayLiteral: txBytes.base64EncodedString(),
                                                                                 (Data([0x00]) + signedBytes + pubKey).base64EncodedString(),
+                                                                                options,
                                                                                 "WaitForLocalExecution"))
         SuiRequest(params, listener)
     }
