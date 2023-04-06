@@ -28,7 +28,8 @@ public class SuiKey {
     }
     
     static func sign(_ seedKey: Data, _ data: Data) -> Data {
-        let signature = Ed25519.sign(message: [UInt8](data), secretKey: [UInt8](seedKey))
+        let hash = try! Blake2.hash(.b2b, size: 32, data: data)
+        let signature = Ed25519.sign(message: [UInt8](hash), secretKey: [UInt8](seedKey))
         return Data(signature)
     }
     
