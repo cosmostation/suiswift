@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SuiClient.shared.setConfig(ChainType.testnet)
+        SuiClient.shared.setConfig(ChainType.devnet)
     }
 }
 
@@ -82,20 +82,20 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
             return
         case .GetSuiSystemState:
-            SuiClient.shared.getSuiSystemstate() { result in
+            SuiClient.shared.getSuiSystemstate() { result, error in
                 self.objects = result
                 print(result)
             }
             return
         case .GetTotalSupply:
-            SuiClient.shared.getTotalSupply("0x2::sui::SUI") { result in
+            SuiClient.shared.getTotalSupply("0x2::sui::SUI") { result, error in
                 self.objects = result
                 print(result)
             }
             return
         case .GetAllBalances:
             if let address = address {
-                SuiClient.shared.getAllBalances(address) { result in
+                SuiClient.shared.getAllBalances(address) { result, error in
                     self.objects = result
                     print(result)
                 }
@@ -103,7 +103,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             return
         case .GetAllBalance:
             if let address = address {
-                SuiClient.shared.getAllBalance(address, "0x2::sui::SUI") { result in
+                SuiClient.shared.getAllBalance(address, "0x2::sui::SUI") { result, error in
                     self.objects = result
                     print(result)
                 }
@@ -111,7 +111,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             return
         case .GetAllCoin:
             if let address = address {
-                SuiClient.shared.getAllCoins(address) { result in
+                SuiClient.shared.getAllCoins(address) { result, error in
                     self.objects = result
                     print(result)
                 }
@@ -119,35 +119,35 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             return
         case .GetCoins:
             if let address = address {
-                SuiClient.shared.getCoins(address, "0x2::sui::SUI") { result in
+                SuiClient.shared.getCoins(address, "0x2::sui::SUI") { result, error in
                     self.objects = result
                     print(result)
                 }
             }
             return
         case .GetCoinMetadata:
-            SuiClient.shared.getCoinMetadata("0x2::sui::SUI") { result in
+            SuiClient.shared.getCoinMetadata("0x2::sui::SUI") { result, error in
                 self.objects = result
                 print(result)
             }
             return
         case .GetObjectsByOwner:
             if let address = address {
-                SuiClient.shared.getObjectsByOwner(address) { result in
+                SuiClient.shared.getObjectsByOwner(address) { result, error in
                     self.objects = result
                     print(result)
                 }
             }
             return
         case .GetObject:
-            SuiClient.shared.getObject(["0x0515b8025a1e9c4abf8f0e8b068a9e8ff7e7aa84","0x0c5865cfb88a3099dfeb367fa503080502bccb0e","0x0efe84ff97ead1dc88ac227ea07e0b623ced8168"]) { result in
-                print(result)
-            }
+//            SuiClient.shared.getObject(["0x0515b8025a1e9c4abf8f0e8b068a9e8ff7e7aa84","0x0c5865cfb88a3099dfeb367fa503080502bccb0e","0x0efe84ff97ead1dc88ac227ea07e0b623ced8168"]) { result, error in
+//                print(result)
+//            }
             return
         case .GetTransactions:
             if let address = address {
                 digests.removeAll()
-                SuiClient.shared.getTransactions(["FromAddress": address]) { result in
+                SuiClient.shared.getTransactions(["FromAddress": address]) { result, error in
                     if let result = result {
                         print(result)
                         result["data"].arrayValue.forEach { json in
@@ -155,7 +155,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                         }
                     }
                 }
-                SuiClient.shared.getTransactions(["ToAddress": address]) { result in
+                SuiClient.shared.getTransactions(["ToAddress": address]) { result, error in
                     if let result = result {
                         print(result)
                         result["data"].arrayValue.forEach { json in
@@ -166,21 +166,22 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             }
             return
         case .GetTransactionDetails:
-            SuiClient.shared.getTransactionDetails(["E9dJqeCPtyaB2N5VJ5FFNBm4qkoWfDUKKZDpnPD5k3Xk", "D88hBzVTQojx3PvpzcB423w7Mx4pyYJmnDey7NKJnXKW"]) { result in
-                print(result)
-            }
+//            SuiClient.shared.getTransactionDetails(["E9dJqeCPtyaB2N5VJ5FFNBm4qkoWfDUKKZDpnPD5k3Xk", "D88hBzVTQojx3PvpzcB423w7Mx4pyYJmnDey7NKJnXKW"]) { result, error in
+//                print(result)
+//            }
             return
         case .TransferObject:
             if let address = address, let objects = objects {
-                let firstObjectId = objects[0]["objectId"].stringValue
+                let firstObjectId = objects["data"][0]["data"]["objectId"].stringValue
                 print(firstObjectId)
-                SuiClient.shared.transferObject(firstObjectId, address, address) { result in
+                SuiClient.shared.transferObject(firstObjectId, address, address) { result, error in
                     if let result = result,
                        let mnemonic = self.mnemonic,
                        let bytes = Data(base64Encoded: result["txBytes"].stringValue) {
                         let signature = SuiClient.shared.sign(mnemonic, Data([0, 0, 0]) + bytes)
-                        SuiClient.shared.executeTransaction(bytes, signature.signedData, signature.pubKey, ["showEffects": true]) { r in
+                        SuiClient.shared.executeTransaction(bytes, signature.signedData, signature.pubKey, ["showEffects": true]) { r, e in
                             print(r)
+                            print(e)
                         }
                     }
                 }

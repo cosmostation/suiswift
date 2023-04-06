@@ -19,7 +19,8 @@ public struct FixedAmountRequest: Encodable {
 public struct JsonRpcResponse: Decodable {
     let id: Int
     var jsonrpc: String
-    let result: JSON
+    let result: JSON?
+    let error: JSON?
 }
 
 public struct JsonRpcRequest: Codable {
