@@ -53,6 +53,10 @@ open class SuiClient {
         return (SuiKey.getPubKey(mnemonic), SuiKey.sign(seedKey, txBytes))
     }
     
+    public func sign(_ privKey: Data, _ txBytes: Data) -> Data {
+        return SuiKey.sign(privKey, txBytes)
+    }
+    
     public func getSuiSystemstate(_ listener: @escaping (JSON?, JSON?) -> Void) {
         let params = JsonRpcRequest("sui_getSuiSystemState", JSON())
         SuiRequest(params, listener)
