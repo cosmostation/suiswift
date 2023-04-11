@@ -19,16 +19,16 @@ open class SuiClient {
     
     public init() { }
     
-    public func setConfig(_ chainType: ChainType) {
+    public func setConfig(_ chainType: ChainType, _ end_point: String? = nil) {
         switch chainType {
         case .local:
-            rpc_endpoint = SuiConstant.LOCAL_RPC_URL
+            rpc_endpoint = end_point != nil ? end_point : SuiConstant.LOCAL_RPC_URL
             faucet_endpoint = SuiConstant.LOCAL_FAUCET_URL
         case .devnet:
-            rpc_endpoint = SuiConstant.DEV_RPC_URL
+            rpc_endpoint = end_point != nil ? end_point : SuiConstant.DEV_RPC_URL
             faucet_endpoint = SuiConstant.DEV_FAUCET_URL
         case .testnet:
-            rpc_endpoint = SuiConstant.TEST_RPC_URL
+            rpc_endpoint = end_point != nil ? end_point : SuiConstant.TEST_RPC_URL
             faucet_endpoint = SuiConstant.TEST_FAUCET_URL
         }
     }
