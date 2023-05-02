@@ -15,7 +15,7 @@ class SuiConstant {
     static let DEV_FAUCET_URL = "https://faucet.devnet.sui.io/gas"
     static let TEST_RPC_URL = "https://rpc-sui-testnet.cosmostation.io"
     static let TEST_FAUCET_URL = "https://faucet.testnet.sui.io/gas"
-    static let MAIN_RPC_URL = ""
+    static let MAIN_RPC_URL = "http://127.0.0.1:9000/"
     
 }
 
@@ -23,4 +23,5 @@ public enum ChainType: Int {
     case local
     case devnet
     case testnet
+    case mainnet
 }

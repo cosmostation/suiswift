@@ -30,6 +30,9 @@ open class SuiClient {
         case .testnet:
             rpc_endpoint = end_point != nil ? end_point : SuiConstant.TEST_RPC_URL
             faucet_endpoint = SuiConstant.TEST_FAUCET_URL
+        case .mainnet:
+            rpc_endpoint = end_point != nil ? end_point : SuiConstant.MAIN_RPC_URL
+            faucet_endpoint = ""
         }
     }
     
