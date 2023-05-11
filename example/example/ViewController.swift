@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        SuiClient.shared.setConfig(ChainType.devnet)
+        SuiClient.shared.setConfig(ChainType.devnet())
     }
 }
 

@@ -132,6 +132,8 @@ open class SuiClient {
             case .success(let value):
                 if let value = value, let response = try? JSONDecoder().decode(JsonRpcResponse.self, from: value) {
                     listener(response.result, response.error)
+                } else {
+                    listener(nil, JSON(["code": -9999, "message": "Unknown"]))
                 }
             case .failure(let error):
                 listener(nil, JSON(["code": -9999, "message": "Unknown"]))
