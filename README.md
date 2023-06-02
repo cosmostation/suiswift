@@ -1,6 +1,6 @@
 # sui swift
 
-iOS SDK for Sui
+iOS SDK for SUI
 
 ## Requirement
 
