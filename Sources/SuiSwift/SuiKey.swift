@@ -6,10 +6,10 @@
 //
 
 import Foundation
-import web3swift
 import CryptoSwift
 import ed25519swift
 import Blake2
+import Web3Core
 
 public class SuiKey {
     static let key = "ed25519 seed"
@@ -18,7 +18,7 @@ public class SuiKey {
         let seedKey = getPrivKeyFromSeed(mnemonic)
         let publicKey = Ed25519.calcPublicKey(secretKey: [UInt8](seedKey))
         let data = Data([UInt8](Data(count: 1)) + publicKey)
-        let hash = try! Blake2.hash(.b2b, size: 32, data: data)
+        let hash = try! Blake2b.hash(size: 32, data: data)
         return "0x" + hash.toHexString()
     }
     
@@ -28,7 +28,7 @@ public class SuiKey {
     }
     
     static func sign(_ seedKey: Data, _ data: Data) -> Data {
-        let hash = try! Blake2.hash(.b2b, size: 32, data: data)
+        let hash = try! Blake2b.hash(size: 32, data: data)
         let signature = Ed25519.sign(message: [UInt8](hash), secretKey: [UInt8](seedKey))
         return Data(signature)
     }
