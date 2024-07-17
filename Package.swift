@@ -19,7 +19,7 @@ let package = Package(
         // .package(url: /* package url */, from: "1.0.0"),
         .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.6.1")),
         .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "4.0.0"),
-        .package(url: "https://github.com/skywinder/web3swift.git", .upToNextMajor(from: "2.5.6")),
+        .package(url: "https://github.com/skywinder/web3swift.git", .upToNextMajor(from: "3.2.1")),
         .package(url: "https://github.com/pebble8888/ed25519swift.git", from: "1.2.7"),
         .package(url: "https://github.com/tesseract-one/Blake2.swift.git", from: "0.1.0")
     ],
