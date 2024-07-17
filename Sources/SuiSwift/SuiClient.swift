@@ -7,8 +7,8 @@
 
 import Foundation
 import Alamofire
-import web3swift
 import SwiftyJSON
+import Web3Core
 
 open class SuiClient {
     
